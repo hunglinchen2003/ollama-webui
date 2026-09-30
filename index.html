@@ -764,6 +764,9 @@ function renderBanner() {
   let showRetry = false;
   if (location.protocol === 'file:') {
     text = '不能直接雙擊這個 HTML。在資料夾執行 python3 -m http.server 8080 --bind 127.0.0.1，然後打開 http://127.0.0.1:8080。macOS 也可以雙擊 start.command。';
+  } else if (!state.online && state.statusChecked && location.hostname.endsWith('github.io')) {
+    text = 'GitHub 網頁要連你電腦上的 Ollama。若這裡一直未連線，請完全退出 Ollama 後再開一次。允許的網站是 ' + location.origin + '。';
+    showRetry = true;
   } else if (!state.online && state.statusChecked) {
     text = state.connDetail || '連不到 Ollama。';
     showRetry = true;
